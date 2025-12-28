@@ -40,14 +40,16 @@ numberList = input().split(' ')
 sum=0
 count=0
 sortedNumber = sorted(numberList,reverse=True)
-print(sortedNumber)
+
 for i in range(int(inputInfo[1])):
-    count+=1
+    
     if count==int(inputInfo[2]):
         sum+=int(sortedNumber[1])
         count=0
         continue
     
     sum+=int(sortedNumber[0])
-
+    count+=1
 print(sum)
+
+
