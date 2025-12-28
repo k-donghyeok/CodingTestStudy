@@ -29,4 +29,15 @@ if n>=10:
 
 print(f"거슬러 줘야할 동전의 최소갯수 : {dictCount} 으로 총{count}개")
 
-    
+####책 코드####
+
+n=1260
+count = 0
+
+coin_types = [500,100,50,10]
+
+for coin in coin_types:
+    count += n//coin
+    n%=coin
+
+print(count)
