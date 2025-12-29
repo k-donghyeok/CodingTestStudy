@@ -33,7 +33,7 @@
 
 
 #2025-12-28-17:02 시작 
-#2025-12-28-17:25 시작 
+#2025-12-28-17:25 종료
 
 inputInfo = input().split(' ')
 numberList = input().split(' ')
