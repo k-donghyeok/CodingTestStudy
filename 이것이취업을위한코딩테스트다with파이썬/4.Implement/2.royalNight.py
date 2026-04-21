@@ -1,6 +1,6 @@
 location = input()
 
-x=ord(location[0])
+x=ord(location[0]) - ord('a')+1
 y=int(location[1])
 result=0
 
@@ -12,7 +12,7 @@ dy=[-2,-2,2,2,-1,1,-1,1]
 for move in range(len(moves)):
     nx=x+dx[move]
     ny=y+dy[move]
-    if(nx<97 or nx >104 or ny<1 or ny>8):
+    if(nx<1 or nx >8 or ny<1 or ny>8):
         continue
     result+=1
 
