@@ -8,7 +8,7 @@ for _ in range(1,11):
     que=deque()
 
     
-    result=[]
+    
     for i in array:
         que.append(i)
     
