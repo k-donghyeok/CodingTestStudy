@@ -7,12 +7,15 @@ customer=[x for x in map(int,sys.stdin.readline().split())]
 
 #완전탐색
 def findComponent(store,customer):
+    
     for i in customer:
+        found=False
         for j in store:
             if(i==j):
                 print("Yes",end=' ')
+                found=True
                 break
-        if(j==store[-1]):
+        if(not found):
             print("No",end=' ')    
                 
 
@@ -39,7 +42,7 @@ def findComponent3(store,customer):
     visited=[0 for _ in range(1000001)]
 
     for i in store:
-        visited[i]+=1
+        visited[i]=1
 
     for i in customer:
         if(visited[i]==1):
@@ -59,4 +62,4 @@ def findComponent4(store,customer):
         else:
             print('No',end=' ')
 
-findComponent4(customer)
+findComponent4(store,customer)
