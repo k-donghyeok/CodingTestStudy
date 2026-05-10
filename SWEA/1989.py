@@ -8,7 +8,7 @@ for test_case in range(1,1+T):
     count=len(string)//2
     result=1 # 1이면 회문 0이면 회문아님
     for i in range(count):
-        print(f'{string[i]} {string[len(string)-1-i]}')
+
         if(string[i]!=string[len(string)-1-i]):
             result=0
             break
@@ -16,4 +16,4 @@ for test_case in range(1,1+T):
     print(f'#{test_case} {result}')
 
 # 파이썬은 슬라이싱 으로 [::-1] 해서 문자열 이랑 같은지 아닌지 검사해도됨
-# if(string==string[::-1]) 
+# if(string==string[::-1])
