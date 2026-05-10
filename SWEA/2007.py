@@ -8,11 +8,8 @@ T = int(input())
 for test_case in range(1,1+T):
     strinput=input()
 
+    for length in range(1,len(strinput)):
 
-
-        for length in range(1,len(strinput)):
-
-            if(strinput[:length]==strinput[length:length*2]):
-                print(f'#{test_case} {length}')
-
-                break
+        if(strinput[:length]==strinput[length:length*2]):
+            print(f'#{test_case} {length}')
+            break
