@@ -21,23 +21,30 @@ class exam{
 
     for(int test_Case=1;test_Case<T+1;test_Case++){
       int n= Integer.parseInt(br.readLine());
-      int [] arr=new int[3];
+      int [] arr=new int[n];
       StringTokenizer st = new StringTokenizer(br.readLine());
       
       for(int i=0;i<n;i++){
         arr[i]=Integer.parseInt(st.nextToken());
       }
 
-      int result=0;
+      long result=0;
       int max=arr[n-1];
       int maxIndex=n-1;
-      for(int i=n-2;i>=0;i--){
-        if(arr[i]>max){
-          for(int j=i+1;j<n;j++){
+      for(int i=n-1;i>0;i--){
+        if(arr[i-1]>max){
+          
+          for(int j=i;j<maxIndex;j++){
             result+= arr[maxIndex]- arr[j];
           }
-          maxIndex=i;
+          maxIndex=i-1;
           max=arr[maxIndex];
+        }
+
+        if(i==1 && maxIndex!=0){
+          for(int j=0;j<maxIndex;j++){
+            result+= arr[maxIndex]- arr[j];
+          }
         }
       }
 
