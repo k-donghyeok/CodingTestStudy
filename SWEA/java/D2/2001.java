@@ -1,9 +1,9 @@
-//22:23
+//22:23 ~ 11:18
 
 // 완전탐색 을 2x2 크기로 하면서 최대값 갱신
 // 현재 좌표에서 우 하 우 대각선 하 좌표를 dx dy로 탐색
 // 반복문의 범위는 0부터 n-(m-1) 까지 
-
+// 우 하 우하 가 아니라 사각형을 만들어야지 뭐하냐?
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
@@ -50,7 +50,6 @@ class Main {
               temp+=arr[ny][nx];
             }
           }
-          
           if(temp>max)max=temp;
           
         }
