@@ -1,0 +1,30 @@
+예외 처리
+	에러 : 코드를 잘못 작성함
+	예외 : 작성의도와 달리 사용되는 경우
+
+	
+	예외의 감지 및 예외 발생시 동작할 코드 작성
+	
+	checked exception -> 예외에 대한 대처 코드가 없으면 컴파일이 진행되지 않음
+
+	unchecked exception -> 예외에 대한 대처코드가 없더라고 컴파일은 진행됨
+
+	try - catch
+
+	finally 구문이 있으면 중간에 return 문을 만나더라고 finally 문을 실행후 종료한다
+
+	finally 구문이 너무 지저분해서 만들어낸
+	try-with-resources
+
+	파일이 close 된 시점이 try 구문안이므로 
+	try 구문 이후의 catch 나 finally 구문에서 close 한 파일을 사용하려고 하면안된다
+
+	throws
+
+		checked exception : throws 키워드를 사용하여 예외를 호출된 곳으로 넘겨줄수있고
+		언제가는 try catch 구문으로 예외처리를 하는 곳이있어야함
+
+		unchecked exception : throws 키워드 사용하지 않아도 자동으로 예외가 호출된곳으로 넘어감
+		마찬가지로 언젠가는 try catch 구문으로 예외처리를 해줘야함
+
+	

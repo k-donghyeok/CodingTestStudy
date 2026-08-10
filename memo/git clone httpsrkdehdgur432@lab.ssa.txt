@@ -1,0 +1,21 @@
+git clone https://rkdehdgur432@lab.ssafy.com/s16/java/ssafy-live-dist-16th.git
+
+랩 싸피 토큰 lfI4mDnZj86vtbh1oTx-zG86MQp1OnBmbgk.01.0z0q3x73i
+
+
+ini 환경변수 설정파일
+
+sts 워크스페이스 변경 방법 file -> switch workspace
+
+
+jre -  자바를 실행하기 위한 환경
+
+jdk  - jre+라이브러리 소스    개발을 위한 킷
+
+sts  - jdk 가 포함되어있음 
+
+jvm 이 힙 영역에 4gb 초과하지 않으면 32비트로 초과하면 64비트로
+
+boolean 은 1바이트로 구현이 되어있음
+
+

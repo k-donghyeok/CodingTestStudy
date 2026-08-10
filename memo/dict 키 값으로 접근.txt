@@ -1,0 +1,6 @@
+dict 키 값으로 접근
+
+[] -> 키가 없으면 keyError
+get("value") -> 키가 없으면 None
+get("value","기본값") 키가 없으면 지정한 기본값
+

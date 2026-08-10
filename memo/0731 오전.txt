@@ -1,0 +1,147 @@
+thread 스레드
+	process : 어플리케이션 실행에 필요한 데이터,메모리 등 자원,스레드 로 구성
+	
+	thread : 프로그램 실행의 최소 단위
+
+	Concurrent (동시성) vs Parallel(병렬성)
+
+	동시성 - 하나의 cpu 가 여러가지 작업을 번갈아 가면서 빨리 전환해서 마치 동시에 작업을 하는것처럼 보임
+
+	병렬성 - 여러 개의 CPU가 각각 자신의 작업을 실제로 동시에 처리하는것
+
+멀티 스레드 프로그래밍 
+
+	장점 - cpu 사용률 향상
+
+	단점 - Context switching 에 다른 비용 발생
+		
+		스레드 제어의 어려움
+		동기화 문제
+		데드락
+
+스레드 생성
+	표준 함수형 인터페이스 중 Runnable 인터페이스 활용하는방법
+
+	Runnable 타입의 객체를 Thread의 생성자 파라미터로 삽입
+
+	thread 클래스 활용 
+	
+	thread 는 Runnable 을 implements 하고있음
+	run() 에 실행 코드 작성(override)
+
+	start() -> 스레드의 run()이 호출 될 수 있도록 준비만 하는것
+	run() -> 준비된 스레드를 실제로 동작시키는 것
+
+	jvm 이 run() 을 호출함 -> 언제? OS의 thread scheduler 에 의해
+	
+
+멀티스레드 와 메모리
+	스레드 마다 자신의 스택을 가진다
+	메인 스레드가 다른 스레드보다 먼저 종료 할수도 있다
+	모든 thread 의 종료가 프로그램의 종료
+
+
+thread 상태와 생명주기
+	작업의 중요도 에 따라 우선순위 지정 setPriority() getPriority()
+	1~10 까지의 우선순위 를 줄수있으며 이때 사용될 값을 상수로 네이밍 하여서 쓰면 뭐가 우선순위가 높은것인지 헷갈리지 않음
+	주의사항
+		우선순위가 높다고 해서 그 thread만 실행되지는 않음
+		실행될 확률이 높아지는것 뿐 -> 우선순위 만으로는 thread 를 100% 제어할수 없음
+
+	threa의 상태는 enum 상수로 정의 되어있음
+
+	NEW -> 스레드 객체가 생성된 후 아직 start() 가 호출되지 않은상태
+
+	RUNNABLE -> JVM 선택에 의해 run() 실행이 가능한 상태
+
+	TERMINATE ->run() 메서드의 종료로 소멸된 상태
+
+	WAITING -> sleep(),wait(),join() 등에 의해 정해진 시간 없이 대기중인 상태 ->notify(),interrupt() 로 RUNNABLE 상태로 만들어줄수				있음
+
+	TIMED-WATING -> sleep(), wait(),join() 등에 의해 정해진 시간동안 대기중인 상태
+
+	BLOCKED -> 사용하려는 객체의 모니터 락이 풀릴 때까지 기다리는 상태
+
+	
+
+
+	sleep() -> 지정된 시간 동안 이 메서드를 호출한 thread 는 waiting pool 에서 대기
+
+	join() -> 다른 스레드의 작업이 종료될 때까지 대기 풀에서 대기
+		
+	yield() ->함수 사용시 RUNNABLE 상태가 됨
+
+	interrupt() -> waiting pool 에서 대기중인 thread 를 깨워서 runnable 로 이동시킴
+			waiting pool로 이동하게 된 원인 라인(join(),sleep() 에 InterruptException 을 발생시킴)
+
+thread 의 종료
+	thread 는 run() 메서드가 끝나면 자동으로 종료 됨
+	looping 중인 thread 를 종료 시키려면 interrupt 상황을 파악해서 안정적인 종료 유도 	
+	
+	
+demon thread
+	일반 thread 의 작업을 돕는 보조적인 thread
+	일반 thread 가 모두 종료되는 순간 강제적으로 자동종료	
+	가비지 컬렉터
+	demon thread 가 생성한 스레드는 모두 demon thread 가 된다
+	
+	메모리의 thread 스택 영역에 demon thread 스택만 남아있어도 종료가된다
+	
+
+데이터 공유와 동기화 문제
+	임계영역 : 공유 데이터에 두개 이상의 스레드가 접근해있는 상태?
+	문제의 출발 : 공유 데이터에 두 개의 스레드가 거의 동시에 접근해서 상태를 바꿈
+	해결책 : 공유의 문제가 생길수 있는 구간에 대해서 하나의 thread 가 선점하고 있으면 다른 thread 가 접근을 못하게 함
+		lock 을 이용한 동시 접근 방지
+	
+	synchronized 키워드
+		작업과 관련된 공유 영역에 lock 점검 필요 표시 
+		RUNNABLE 상태의 스레드가 공유객체의 synchronized 키워드 발견시	lock을 가져오려고함
+		lock 을 가져올수 있으면 가져오고 못가져오면 lock pool 에서 대기 
+		먼저 작업 하고있던 스레드가 작업을 끝내고 lock 반납시 lock pool 에서 RUNNABLE 상태로 변경
+
+	mutex - 동시에 접근 가능한 스레드의 갯수를 1개로 만드는것
+	임계영역 이 길어지면 성능이 안좋음
+	공유 데이터의 method 전체를 mutex 시켜버리는거 보다
+	메소드 내부에서 블록을 지정하여서 부분적으로 mutex 하는것이 성능적으로 좋음
+	세마포어 
+
+
+	wait(),notify(),notifyAll() Object에 정의된 메서드들로 동기화 블록(synchronized) 내에서만 사용 가능
+
+	Lock 을 가진 thread 가 더이상 작업을 수행할수 없는 상황에서 lock 을 풀고 waiting pool 로 이동
+	다른 thread 들은 lock 을 얻을수 있는 상태가 됨
+
+	notify(), notifyAll()
+	wait() 로 waiting pool 로 이동한 thread 들이 활동할수 있는 조건이 되었을 경우 호출
+	waiting pool 에서 대기중인 스레드 들을 RUNNABLE 상태로 변경해줌
+
+	
+thread pool
+	병렬작업 증가로 1회성 스레드 의 개수가 증가하면 -> 스레드 생성. 스케줄링 비용 증가 -> 성능저하
+
+	기존에는 스레드를 생성후 작업 1개 완료하면 삭제되었다면
+
+	쓰레드 풀에 작업처리에 사용될 스레드를 제한된 개수만큼 정해놓고 작업 큐를 만들어서 쓰레드들은
+	작업 큐에 들어오는 작업들을 하나씩 스레드가 처리 작업 처리가 끝난 스레드는 다시 작업 큐 에서 새로운 작업을 가져와서 처리
+	 
+	ExecutorService ->ThreadPool 추상화 interface
+
+	생성 -> Executors 의 static 메서드로 생성
+	
+	종료 -> ExecutorService 의 메서드로 ThreadPool 종료
+
+
+작업의 유형
+	Runnable -> 작업후 반환값이 없는 형태
+
+	Callable -> 작업후 반환값이 있는 형태
+		Future : 지연 완료 객체 -> 작업 결과를 호출 즉시 반환 x 작업이 완료될 때 까지 블로킹 되었다가 풀리고 결과반환?
+
+	
+	
+
+
+
+
+
